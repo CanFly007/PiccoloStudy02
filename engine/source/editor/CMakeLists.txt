@@ -1,0 +1,46 @@
+set(TARGET_NAME PiccoloEditor)
+
+file(GLOB EDITOR_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
+file(GLOB EDITOR_SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
+file(GLOB EDITOR_RESOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resource/PiccoloEditor.rc)
+
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${EDITOR_HEADERS} ${EDITOR_SOURCES} ${EDITOR_RESOURCE})
+
+add_executable(${TARGET_NAME} ${EDITOR_HEADERS} ${EDITOR_SOURCES} ${EDITOR_RESOURCE})
+
+add_compile_definitions("PICCOLO_ROOT_DIR=${BINARY_ROOT_DIR}")
+
+target_include_directories(
+  ${TARGET_NAME} 
+  PUBLIC $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/stb>
+) #C/C++ 附加包含目录中：engine\3rdparty\stb
+
+set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME "PiccoloEditor")
+set_target_properties(${TARGET_NAME} PROPERTIES FOLDER "Engine")
+
+target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/WX->")
+
+target_link_libraries(${TARGET_NAME} PiccoloRuntime) #链接器/输入/附加依赖项 添加编译后的runtime.lib
+
+set(POST_BUILD_COMMANDS
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${BINARY_ROOT_DIR}"
+  COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/resource" "${BINARY_ROOT_DIR}/resource"
+  COMMAND ${CMAKE_COMMAND} -E copy_directory "$<TARGET_FILE_DIR:${TARGET_NAME}>/" "${BINARY_ROOT_DIR}"
+  COMMAND ${CMAKE_COMMAND} -E copy "${ENGINE_ROOT_DIR}/${DEPLOY_CONFIG_DIR}/${TARGET_NAME}.ini" "${BINARY_ROOT_DIR}"
+  COMMAND ${CMAKE_COMMAND} -E copy "${ENGINE_ROOT_DIR}/${DEVELOP_CONFIG_DIR}/${TARGET_NAME}.ini" "$<TARGET_FILE_DIR:${TARGET_NAME}>/"
+  COMMAND ${CMAKE_COMMAND} -E remove_directory "${BINARY_ROOT_DIR}/${ENGINE_ASSET_DIR}"
+  COMMAND ${CMAKE_COMMAND} -E copy_directory "${ENGINE_ROOT_DIR}/${ENGINE_ASSET_DIR}" "${BINARY_ROOT_DIR}/${ENGINE_ASSET_DIR}"
+)
+
+
+
+
+
+
+#message(WARNING "here11111111111111")
+
+
+
+#precompile
+#set global vari used by precompile
+set(PICCOLO_EDITOR_HEADS “${EDITOR_HEADERS}” PARENT_SCOPE)
