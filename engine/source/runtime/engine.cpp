@@ -3,7 +3,7 @@
 // #include "runtime/core/base/macro.h"
 // #include "runtime/core/meta/reflection/reflection_register.h"
 
-// #include "runtime/function/global/global_context.h"
+#include "runtime/function/global/global_context.h"
 
 namespace Piccolo
 {
@@ -12,9 +12,9 @@ namespace Piccolo
 
 	void PiccoloEngine::startEngine(const std::string& config_file_path)
 	{
-		//Reflection::TypeMetaRegister::metaRegister(); //��Ϊ�޷�������������ʱע��
+		//Reflection::TypeMetaRegister::metaRegister(); //因为无法解析，所以暂时注释
 		
-		// g_runtime_global_context.startSystems(config_file_path);
+		g_runtime_global_context.startSystems(config_file_path);
 
 		// LOG_INFO("engine start");
 	}

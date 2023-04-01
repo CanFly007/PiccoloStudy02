@@ -56,7 +56,7 @@ target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:
 
 
 
-
+#奇怪的是：这是runtime的CMakeList，但可以影响PiccoloRuntime和PiccoloEditor两个工程
 target_include_directories(
   ${TARGET_NAME} 
   PUBLIC $<BUILD_INTERFACE:${ENGINE_ROOT_DIR}/source>
