@@ -1,5 +1,6 @@
 #include "engine.h"
 
+#include "runtime/core/base/macro.h"
 // #include "runtime/core/base/macro.h"
 // #include "runtime/core/meta/reflection/reflection_register.h"
 
@@ -16,7 +17,7 @@ namespace Piccolo
 		
 		g_runtime_global_context.startSystems(config_file_path);
 
-		// LOG_INFO("engine start");
+		LOG_INFO("engine start");
 	}
 
 	void PiccoloEngine::shutdownEngine()

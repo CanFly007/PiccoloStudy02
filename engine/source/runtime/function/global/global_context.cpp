@@ -1,4 +1,7 @@
 #include "runtime/function/global/global_context.h"
+
+#include "core/log/log_system.h"
+
 #include "runtime/engine.h"
 
 #include <iostream>
@@ -11,7 +14,12 @@ namespace Piccolo
 	{
 		std::cout << config_file_path << std::endl;
 
-		//m_logger_system = std::make_shared<LogSystem>();
+		m_logger_system = std::make_shared<LogSystem>();
 		//TODO...CONTINUE
+	}
+
+	void RuntimeGlobalContext::shutdownSystems()
+	{
+
 	}
 }

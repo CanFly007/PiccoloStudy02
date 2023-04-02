@@ -5,6 +5,8 @@
 
 namespace Piccolo
 {
+	class LogSystem;
+
     class RuntimeGlobalContext
 	{
 	public:
@@ -12,7 +14,7 @@ namespace Piccolo
 		void shutdownSystems();
 
 	public:
-		//std::shared_ptr<LogSystem> m_logger_system;
+		std::shared_ptr<LogSystem> m_logger_system;
 
 	};
 
